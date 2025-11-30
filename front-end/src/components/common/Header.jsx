@@ -77,12 +77,12 @@ export default function Header() {
             <Link to="/courses" className={styles.navLink} onClick={closeMenu}>Courses</Link>
             <Link to="/about" className={styles.navLink} onClick={closeMenu}>About</Link>
             <Link to="/blog" className={styles.navLink} onClick={closeMenu}>Blog</Link> {/* ⭐ Added */}
-            <Link to="/contact" className={styles.navLink} onClick={closeMenu}>Contact</Link>
+            <Link to="/careers" className={styles.navLink} onClick={closeMenu}>Careers</Link>
           </nav>
 
           <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
             <div className={styles.actions}>
-              <Link to="/explore" className={styles.signupBtn} onClick={closeMenu}>Explore Courses</Link>
+              <Link to="/contact" className={styles.signupBtn} onClick={closeMenu}>Contact Us</Link>
             </div>
 
             <button
@@ -126,10 +126,10 @@ export default function Header() {
               <Link to="/courses" className={styles.mobileNavLink} onClick={closeMenu}>Courses</Link>
               <Link to="/about" className={styles.mobileNavLink} onClick={closeMenu}>About</Link>
               <Link to="/blog" className={styles.mobileNavLink} onClick={closeMenu}>Blog</Link> {/* ⭐ Added */}
-              <Link to="/contact" className={styles.mobileNavLink} onClick={closeMenu}>Contact</Link>
+              <Link to="/careers" className={styles.mobileNavLink} onClick={closeMenu}>Careers</Link>
 
               <div style={{ marginTop: "auto", padding: "12px 18px" }}>
-                <Link to="/get-started" className={styles.mobileBtnAccent} style={{ display: "block", padding: "12px 14px" }} onClick={closeMenu}>
+                <Link to="/contact" className={styles.mobileBtnAccent} style={{ display: "block", padding: "12px 14px" }} onClick={closeMenu}>
                   Get Started
                 </Link>
               </div>
