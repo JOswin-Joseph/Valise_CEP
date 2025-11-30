@@ -1,10 +1,11 @@
-/* src/components/common/Header.module.css */
-
 :root {
-  --accent: #1d4ed8;      /* deep blue accent */
+  --accent: #1d4ed8;
   --accent-soft: #eff6ff;
-  --primary: #020617;     /* matches site dark navy */
+  --primary: #020617;
   --muted: #6b7280;
+
+  /* header height variable — used to position mobile menu below header */
+  --header-height: 72px;
 }
 
 /* HEADER */
@@ -14,14 +15,12 @@
   left: 0;
   right: 0;
   z-index: 80;
-  /* subtle glass over content */
   background: rgba(255, 255, 255, 0.9);
   backdrop-filter: blur(14px);
   border-bottom: 1px solid rgba(15, 23, 42, 0.04);
-  transition:
-    box-shadow 180ms ease,
-    background 180ms ease,
-    border-color 180ms ease;
+  transition: box-shadow 180ms ease, background 180ms ease, border-color 180ms ease;
+  height: var(--header-height);
+  box-sizing: border-box;
 }
 
 .header.scrolled {
@@ -39,22 +38,26 @@
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  height: 72px;
+  height: 100%;
+  box-sizing: border-box;
 }
 
-/* BRAND – ONLY THE LOGO (icon + text), no wrapper */
+/* BRAND */
 .brand {
   display: flex;
   align-items: center;
   text-decoration: none;
+  flex-shrink: 0;
 }
 
-/* keep logo size as you set */
+/* LOGO - responsive */
 .brandLogo {
-  height: 172px;          /* do not change per your request */
+  height: auto;
   width: auto;
+  max-height: 64px;    /* nicer default on desktop */
   object-fit: contain;
   display: block;
+  max-width: 320px;
 }
 
 /* NAV */
@@ -74,11 +77,13 @@
   font-weight: 500;
   font-size: 0.96rem;
   transition: color 120ms ease;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 160px;
 }
 
-.navLink:hover {
-  color: var(--accent);
-}
+.navLink:hover { color: var(--accent); }
 
 .navLink::after {
   content: "";
@@ -94,23 +99,20 @@
   transform-origin: center;
   transition: opacity 120ms ease, transform 120ms ease;
 }
-
-.navLink:hover::after {
-  opacity: 1;
-  transform: scaleX(1);
-}
+.navLink:hover::after { opacity: 1; transform: scaleX(1); }
 
 /* ACTIONS (right) */
 .actions {
   display: flex;
   align-items: center;
   gap: 12px;
+  flex-shrink: 1;
 }
 
 .signupBtn {
   padding: 7px 14px;
   border-radius: 999px;
-  background: linear-gradient(90deg, #2563eb, #0ea5e9); /* same blue/cyan used in theme */
+  background: linear-gradient(90deg, #2563eb, #0ea5e9);
   color: #fff;
   font-weight: 600;
   font-size: 0.9rem;
@@ -122,11 +124,7 @@
   justify-content: center;
   transition: transform 130ms ease, box-shadow 130ms ease, opacity 130ms ease;
 }
-
-.signupBtn:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 14px 30px rgba(37, 99, 235, 0.48);
-}
+.signupBtn:hover { transform: translateY(-1px); box-shadow: 0 14px 30px rgba(37, 99, 235, 0.48); }
 
 /* MOBILE TOGGLE */
 .mobileToggle {
@@ -139,17 +137,21 @@
   cursor: pointer;
 }
 
-/* MOBILE PANEL */
+/* MOBILE BACKDROP & PANEL — start below header using --header-height */
 .mobileBackdrop {
   position: fixed;
-  inset: 0;
+  top: var(--header-height);
+  left: 0;
+  right: 0;
+  bottom: 0;
   background: rgba(15, 23, 42, 0.45);
   z-index: 90;
 }
 
+/* slide-in panel from right, starts below header so header remains visible */
 .mobilePanel {
   position: fixed;
-  top: 0;
+  top: var(--header-height);
   right: 0;
   bottom: 0;
   width: 300px;
@@ -159,10 +161,11 @@
   display: flex;
   flex-direction: column;
   box-shadow: -10px 0 30px rgba(15, 23, 42, 0.22);
+  overflow: hidden;
 }
 
 .mobileNav {
-  padding: 28px 18px;
+  padding: 20px 18px;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -178,11 +181,7 @@
   border-radius: 8px;
   transition: background 130ms ease, color 130ms ease;
 }
-
-.mobileNavLink:hover {
-  background: #f3f4f6;
-  color: var(--accent);
-}
+.mobileNavLink:hover { background: #f3f4f6; color: var(--accent); }
 
 .mobileBtnAccent {
   border-radius: 8px;
@@ -191,27 +190,44 @@
   text-align: center;
 }
 
+/* Ensure nav can shrink and menu content won't overflow header area */
+.desktopNav, .actions { flex-shrink: 1; }
+
 /* RESPONSIVE */
+
+/* Desktop: show desktop nav and hide mobile controls */
 @media (min-width: 1024px) {
-  .desktopNav {
-    display: flex;
-  }
-  .mobileToggle {
-    display: none;
-  }
-  .mobilePanel {
-    display: none;
-  }
+  .desktopNav { display: flex; }
+  .mobileToggle { display: none; }
+  .mobilePanel { display: none; }
+  .brandLogo { max-height: 96px; } /* allow bigger logo on desktop */
 }
 
+/* Tablet/mobile: hide desktop nav, show hamburger; increase logo size and adjust header height */
 @media (max-width: 1023px) {
-  .desktopNav {
-    display: none;
-  }
-  .mobileToggle {
-    display: inline-flex;
-  }
-  .actions {
-    display: none; /* hide right CTA on small screens */
-  }
+  .desktopNav { display: none; }
+  .mobileToggle { display: inline-flex; }
+  .actions { display: none; }
+  .inner { padding: 8px 15px; gap: 10px; }
+
+  /* make logo larger on mobile so it's visible, but keep layout stable */
+  .brandLogo { max-height: 90px; }
+
+  /* increase header height variable so mobilePanel/backdrop position matches taller header */
+  .header { --header-height: 88px; height: var(--header-height); }
+}
+
+/* tiny phones */
+@media (max-width: 420px) {
+  .brandLogo { max-height: 80px; }
+  .inner { padding: 6px 12px; }
+  .mobilePanel { width: 92vw; }
+
+  /* slightly smaller header on tiny phones */
+  .header { --header-height: 76px; height: var(--header-height); }
+}
+
+/* Optional: very wide screens */
+@media (min-width: 1400px) {
+  .brandLogo { max-height: 140px; } /* if you want a very large header logo on huge screens */
 }
