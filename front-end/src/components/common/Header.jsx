@@ -31,7 +31,6 @@ export default function Header() {
     };
     window.addEventListener("resize", onResize);
     return () => window.removeEventListener("resize", onResize);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open]);
 
   const computeHeaderHeight = () => {
@@ -72,10 +71,12 @@ export default function Header() {
             />
           </Link>
 
+          {/* ------------------ DESKTOP NAV ------------------ */}
           <nav className={styles.desktopNav} aria-label="Primary navigation">
             <Link to="/" className={styles.navLink} onClick={closeMenu}>Home</Link>
             <Link to="/courses" className={styles.navLink} onClick={closeMenu}>Courses</Link>
             <Link to="/about" className={styles.navLink} onClick={closeMenu}>About</Link>
+            <Link to="/blog" className={styles.navLink} onClick={closeMenu}>Blog</Link> {/* ⭐ Added */}
             <Link to="/contact" className={styles.navLink} onClick={closeMenu}>Contact</Link>
           </nav>
 
@@ -105,6 +106,7 @@ export default function Header() {
         </div>
       </header>
 
+      {/* ------------------ MOBILE MENU ------------------ */}
       {open && (
         <>
           <div
@@ -123,6 +125,7 @@ export default function Header() {
               <Link to="/" className={styles.mobileNavLink} onClick={closeMenu}>Home</Link>
               <Link to="/courses" className={styles.mobileNavLink} onClick={closeMenu}>Courses</Link>
               <Link to="/about" className={styles.mobileNavLink} onClick={closeMenu}>About</Link>
+              <Link to="/blog" className={styles.mobileNavLink} onClick={closeMenu}>Blog</Link> {/* ⭐ Added */}
               <Link to="/contact" className={styles.mobileNavLink} onClick={closeMenu}>Contact</Link>
 
               <div style={{ marginTop: "auto", padding: "12px 18px" }}>
@@ -137,4 +140,3 @@ export default function Header() {
     </>
   );
 }
-  
