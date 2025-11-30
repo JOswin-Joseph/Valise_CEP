@@ -1,135 +1,234 @@
+/* src/pages/Home.module.css */
+
 .home {
   width: 100%;
 }
 
+/* ================= HERO (GLASS CARD, SIMPLE) ================= */
+
 .hero {
-  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
-  padding: 6rem 0;
-  color: white;
+  position: relative;
+  border-radius: 0 0 32px 32px;
+  padding: 6rem 0 5rem;
+  color: #0b1220;
+  background:
+    radial-gradient(circle at top left, rgba(56, 189, 248, 0.2), transparent 55%),
+    radial-gradient(circle at bottom right, rgba(59, 130, 246, 0.18), transparent 55%),
+    linear-gradient(135deg, #020617 0%, #020617 40%, #0b1120 100%);
+  overflow: hidden;
+}
+
+/* big soft glow */
+.hero::before {
+  content: "";
+  position: absolute;
+  width: 900px;
+  height: 900px;
+  border-radius: 999px;
+  background: radial-gradient(circle at center, rgba(56, 189, 248, 0.38), transparent 65%);
+  top: -260px;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0.45;
+  filter: blur(4px);
+  pointer-events: none;
+}
+
+/* remove grid: was too noisy, keeping clean corporate */
+
+/* main glass card */
+.heroContent {
+  position: relative;
+  z-index: 1;
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 2.4rem 2.6rem 2.2rem;
+  border-radius: 1.85rem;
+  background:
+    radial-gradient(circle at top left, rgba(56, 189, 248, 0.3), transparent 55%),
+    radial-gradient(circle at bottom right, rgba(37, 99, 235, 0.3), transparent 55%),
+    rgba(15, 23, 42, 0.95);
+  border: 1px solid rgba(148, 163, 184, 0.6);
+  box-shadow:
+    0 26px 80px rgba(15, 23, 42, 0.9),
+    0 0 0 1px rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(22px);
   text-align: center;
+  color: #e5e7eb;
+}
+
+/* inner glow border */
+.heroContent::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    120deg,
+    rgba(56, 189, 248, 0.8),
+    rgba(59, 130, 246, 0.8),
+    rgba(45, 212, 191, 0.7)
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+/* make children sit above border mask */
+.heroContent > * {
+  position: relative;
+  z-index: 1;
 }
 
 .heroContent h1 {
-  font-size: 3rem;
-  margin-bottom: var(--spacing-lg);
+  font-size: 2.8rem;
+  margin-bottom: 1.1rem;
   line-height: 1.2;
+  color: #f9fafb;
 }
 
 .heroContent p {
-  font-size: 1.25rem;
-  opacity: 0.9;
-  margin-bottom: var(--spacing-2xl);
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: #cbd5f5;
   max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0 auto 2rem auto;
 }
 
+/* buttons row */
 .heroActions {
   display: flex;
-  gap: var(--spacing-lg);
+  gap: 1rem;
   justify-content: center;
   flex-wrap: wrap;
 }
 
+/* ================= STATS (LIGHT CORPORATE) ================= */
+
 .stats {
-  padding: var(--spacing-3xl) 0;
-  background: var(--color-surface);
+  padding: 3.5rem 0 3.75rem;
+  background: #f9fafb;
 }
 
 .statsGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: var(--spacing-2xl);
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 1.5rem;
 }
 
 .statCard {
-  text-align: center;
+  background: #ffffff;
+  border-radius: 1rem;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.04);
+  padding: 1.4rem 1.4rem 1.3rem;
+  text-align: left;
 }
 
 .statIcon {
-  color: var(--color-accent);
-  margin-bottom: var(--spacing-lg);
-  display: flex;
+  display: inline-flex;
+  align-items: center;
   justify-content: center;
+  padding: 0.45rem;
+  margin-bottom: 0.85rem;
+  border-radius: 999px;
+  background: #eff6ff;
+  color: #0369a1;
 }
 
 .statCard h3 {
-  font-size: 2.5rem;
-  color: var(--color-primary);
-  margin-bottom: var(--spacing-sm);
+  font-size: 1.35rem;
+  color: #0f172a;
+  margin-bottom: 0.2rem;
 }
 
 .statCard p {
-  color: var(--color-text-secondary);
+  font-size: 0.9rem;
+  color: #6b7280;
 }
 
+/* ================= FEATURED COURSES ================= */
+
 .featured {
-  padding: var(--spacing-3xl) 0;
-  background: var(--color-background);
+  padding: 3.75rem 0 3.75rem;
+  background: #ffffff;
 }
 
 .sectionHeader {
   text-align: center;
-  margin-bottom: var(--spacing-3xl);
+  margin-bottom: 2.5rem;
 }
 
 .sectionHeader h2 {
-  font-size: 2.5rem;
-  color: var(--color-primary);
-  margin-bottom: var(--spacing-md);
+  font-size: 2.1rem;
+  color: #0f172a;
+  margin-bottom: 0.6rem;
 }
 
 .sectionHeader p {
-  font-size: 1.125rem;
-  color: var(--color-text-secondary);
+  font-size: 1rem;
+  color: #6b7280;
+  max-width: 560px;
+  margin: 0 auto;
 }
 
 .coursesGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: var(--spacing-2xl);
-  margin-bottom: var(--spacing-3xl);
+  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+  gap: 2rem;
+  margin-bottom: 2.5rem;
 }
 
 .courseCard {
-  background: var(--color-surface);
-  border-radius: var(--radius-xl);
+  border-radius: 1.25rem;
   overflow: hidden;
-  box-shadow: var(--shadow-md);
-  transition: all var(--transition-base);
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.05);
+  display: flex;
+  flex-direction: column;
 }
 
 .courseCard img {
   width: 100%;
   height: 200px;
   object-fit: cover;
+  transform: scale(1.02);
+  transition: transform 0.5s ease;
+}
+
+.courseCard:hover img {
+  transform: scale(1.06);
 }
 
 .courseContent {
-  padding: var(--spacing-xl);
+  padding: 1.3rem 1.5rem 1.2rem;
 }
 
 .category {
   display: inline-block;
-  padding: var(--spacing-xs) var(--spacing-md);
-  background: var(--color-accent);
-  color: white;
-  font-size: 0.75rem;
-  font-weight: var(--font-weight-semibold);
-  border-radius: var(--radius-full);
-  margin-bottom: var(--spacing-md);
+  padding: 0.2rem 0.7rem;
+  background: #e0f2fe;
+  color: #0369a1;
+  font-size: 0.78rem;
+  font-weight: 600;
+  border-radius: 999px;
+  margin-bottom: 0.7rem;
 }
 
 .courseContent h3 {
-  font-size: 1.25rem;
-  margin-bottom: var(--spacing-md);
-  color: var(--color-primary);
+  font-size: 1.15rem;
+  margin-bottom: 0.5rem;
+  color: #0f172a;
 }
 
 .courseContent p {
-  color: var(--color-text-secondary);
-  margin-bottom: var(--spacing-lg);
-  font-size: 0.938rem;
+  color: #6b7280;
+  margin-bottom: 1.1rem;
+  font-size: 0.9rem;
 }
 
 .courseFooter {
@@ -139,72 +238,75 @@
 }
 
 .price {
-  font-size: 1.5rem;
-  font-weight: var(--font-weight-bold);
-  color: var(--color-accent);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #0f766e;
 }
 
 .viewBtn {
-  color: var(--color-primary);
-  font-weight: var(--font-weight-semibold);
+  color: #0f172a;
+  font-weight: 500;
+  font-size: 0.9rem;
   text-decoration: none;
-  transition: color var(--transition-fast);
+  padding-bottom: 2px;
+  border-bottom: 1px solid #d1d5db;
+  transition: color 0.18s ease, border-color 0.18s ease;
 }
 
 .viewBtn:hover {
-  color: var(--color-accent);
+  color: #0369a1;
+  border-color: #0369a1;
 }
 
 .viewAll {
   text-align: center;
 }
 
-.testimonials {
-  padding: var(--spacing-3xl) 0;
-  background: var(--color-surface);
-}
+/* ================= TESTIMONIALS ================= */
 
-.testimonials h2 {
-  margin-bottom: var(--spacing-3xl);
-  color: var(--color-primary);
+.testimonials {
+  padding: 3.75rem 0 3.5rem;
+  background: #f9fafb;
 }
 
 .testimonialsGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: var(--spacing-2xl);
+  grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+  gap: 2rem;
 }
 
 .testimonialCard {
-  background: var(--color-background);
-  padding: var(--spacing-xl);
-  border-radius: var(--radius-xl);
-  box-shadow: var(--shadow-sm);
+  background: #ffffff;
+  padding: 1.4rem 1.5rem 1.5rem;
+  border-radius: 1.25rem;
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.06);
+  border: 1px solid #e5e7eb;
 }
 
 .rating {
   display: flex;
-  gap: var(--spacing-xs);
-  margin-bottom: var(--spacing-md);
+  gap: 0.2rem;
+  margin-bottom: 0.7rem;
 }
 
 .testimonialCard p {
   font-style: italic;
-  color: var(--color-text-secondary);
-  margin-bottom: var(--spacing-lg);
+  color: #4b5563;
+  margin-bottom: 1rem;
   line-height: 1.6;
+  font-size: 0.96rem;
 }
 
 .author {
   display: flex;
   align-items: center;
-  gap: var(--spacing-md);
+  gap: 0.75rem;
 }
 
 .author img {
-  width: 48px;
-  height: 48px;
-  border-radius: var(--radius-full);
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
   object-fit: cover;
 }
 
@@ -214,51 +316,75 @@
 }
 
 .author strong {
-  color: var(--color-text-primary);
-  font-weight: var(--font-weight-semibold);
+  color: #111827;
+  font-weight: 600;
 }
 
 .author span {
-  font-size: 0.875rem;
-  color: var(--color-text-secondary);
+  font-size: 0.82rem;
+  color: #6b7280;
 }
 
+/* ================= CTA (GLASS CARD) ================= */
+
 .cta {
-  padding: var(--spacing-3xl) 0;
-  background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-dark) 100%);
-  color: white;
+  padding: 3.5rem 0 4rem;
+  background: linear-gradient(135deg, #0f172a 0%, #020617 100%);
 }
 
 .ctaContent {
+  max-width: 640px;
+  margin: 0 auto;
   text-align: center;
+  padding: 2rem 2rem 2.2rem;
+  border-radius: 1.7rem;
+  background:
+    radial-gradient(circle at top left, rgba(56, 189, 248, 0.22), transparent 60%),
+    radial-gradient(circle at bottom right, rgba(59, 130, 246, 0.24), transparent 60%),
+    rgba(15, 23, 42, 0.94);
+  border: 1px solid rgba(148, 163, 184, 0.5);
+  backdrop-filter: blur(22px);
+  color: #e5e7eb;
+  box-shadow: 0 24px 70px rgba(15, 23, 42, 0.9);
 }
 
 .ctaContent h2 {
-  font-size: 2.5rem;
-  margin-bottom: var(--spacing-md);
+  font-size: 2rem;
+  margin-bottom: 0.7rem;
+  color: #f9fafb;
 }
 
 .ctaContent p {
-  font-size: 1.125rem;
+  font-size: 1rem;
   opacity: 0.9;
-  margin-bottom: var(--spacing-2xl);
+  margin-bottom: 1.7rem;
+  color: #cbd5f5;
 }
 
+/* ================= RESPONSIVE ================= */
+
 @media (max-width: 768px) {
+  .hero {
+    padding: 4.5rem 0 3.5rem;
+  }
+
+  .heroContent {
+    padding: 2rem 1.7rem 1.8rem;
+  }
+
   .heroContent h1 {
-    font-size: 2rem;
+    font-size: 2.1rem;
   }
 
   .heroContent p {
-    font-size: 1rem;
+    font-size: 0.98rem;
   }
 
-  .sectionHeader h2,
+  .sectionHeader h2 {
+    font-size: 1.8rem;
+  }
+
   .ctaContent h2 {
-    font-size: 2rem;
-  }
-
-  .hero {
-    padding: 4rem 0;
+    font-size: 1.85rem;
   }
 }

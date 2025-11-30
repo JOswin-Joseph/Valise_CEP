@@ -1,12 +1,14 @@
 // Utility helper functions
 
 /**
- * Format currency value
+ * Format currency value — Indian Rupee (₹)
  */
-export const formatCurrency = (amount, currency = 'USD') => {
-  return new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency,
+export const formatCurrency = (amount) => {
+  if (amount === undefined || amount === null) return "₹0";
+  return new Intl.NumberFormat("en-IN", {
+    style: "currency",
+    currency: "INR",
+    maximumFractionDigits: 0,
   }).format(amount);
 };
 
@@ -15,12 +17,12 @@ export const formatCurrency = (amount, currency = 'USD') => {
  */
 export const formatDate = (date, options = {}) => {
   const defaultOptions = {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
+    year: "numeric",
+    month: "long",
+    day: "numeric",
     ...options,
   };
-  return new Date(date).toLocaleDateString('en-US', defaultOptions);
+  return new Date(date).toLocaleDateString("en-US", defaultOptions);
 };
 
 /**
@@ -35,7 +37,7 @@ export const calculateDiscount = (original, discounted) => {
  */
 export const truncateText = (text, maxLength) => {
   if (text.length <= maxLength) return text;
-  return text.slice(0, maxLength) + '...';
+  return text.slice(0, maxLength) + "...";
 };
 
 /**
@@ -45,9 +47,9 @@ export const slugify = (text) => {
   return text
     .toLowerCase()
     .trim()
-    .replace(/[^\w\s-]/g, '')
-    .replace(/[\s_-]+/g, '-')
-    .replace(/^-+|-+$/g, '');
+    .replace(/[^\w\s-]/g, "")
+    .replace(/[\s_-]+/g, "-")
+    .replace(/^-+|-+$/g, "");
 };
 
 /**
@@ -73,7 +75,8 @@ export const isInViewport = (element) => {
   return (
     rect.top >= 0 &&
     rect.left >= 0 &&
-    rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+    rect.bottom <=
+      (window.innerHeight || document.documentElement.clientHeight) &&
     rect.right <= (window.innerWidth || document.documentElement.clientWidth)
   );
 };
@@ -84,12 +87,13 @@ export const isInViewport = (element) => {
 export const scrollToElement = (elementId, offset = 0) => {
   const element = document.getElementById(elementId);
   if (element) {
-    const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+    const elementPosition =
+      element.getBoundingClientRect().top + window.pageYOffset;
     const offsetPosition = elementPosition - offset;
 
     window.scrollTo({
       top: offsetPosition,
-      behavior: 'smooth',
+      behavior: "smooth",
     });
   }
 };
@@ -98,8 +102,8 @@ export const scrollToElement = (elementId, offset = 0) => {
  * Get initials from name
  */
 export const getInitials = (name) => {
-  if (!name) return '';
-  const parts = name.split(' ');
+  if (!name) return "";
+  const parts = name.split(" ");
   if (parts.length === 1) return parts[0].charAt(0).toUpperCase();
   return (parts[0].charAt(0) + parts[parts.length - 1].charAt(0)).toUpperCase();
 };
@@ -116,7 +120,7 @@ export const generateId = () => {
  */
 export const downloadFile = (blob, filename) => {
   const url = window.URL.createObjectURL(blob);
-  const link = document.createElement('a');
+  const link = document.createElement("a");
   link.href = url;
   link.download = filename;
   document.body.appendChild(link);
@@ -133,7 +137,7 @@ export const copyToClipboard = async (text) => {
     await navigator.clipboard.writeText(text);
     return true;
   } catch (err) {
-    console.error('Failed to copy:', err);
+    console.error("Failed to copy:", err);
     return false;
   }
 };
@@ -162,7 +166,9 @@ export const getQueryParams = () => {
  * Set page title
  */
 export const setPageTitle = (title) => {
-  document.title = title ? `${title} | TakeOff Upskill` : 'TakeOff Upskill - Transform Your Career';
+  document.title = title
+    ? `${title} | TakeOff Upskill`
+    : "TakeOff Upskill - Transform Your Career";
 };
 
 /**
@@ -171,8 +177,8 @@ export const setPageTitle = (title) => {
 export const setMetaDescription = (description) => {
   let metaTag = document.querySelector('meta[name="description"]');
   if (!metaTag) {
-    metaTag = document.createElement('meta');
-    metaTag.name = 'description';
+    metaTag = document.createElement("meta");
+    metaTag.name = "description";
     document.head.appendChild(metaTag);
   }
   metaTag.content = description;

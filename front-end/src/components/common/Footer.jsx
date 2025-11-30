@@ -1,67 +1,82 @@
-import { Link } from 'react-router-dom';
-import { GraduationCap, Mail, Phone, MapPin, Facebook, Twitter, Linkedin, Instagram } from 'lucide-react';
-import styles from './Footer.module.css';
+import { Link } from "react-router-dom";
+import {
+  Mail,
+  Phone,
+  MapPin,
+  Facebook,
+  Twitter,
+  Linkedin,
+  Instagram,
+} from "lucide-react";
+import styles from "./Footer.module.css";
+import logo from "../../assets/logo.png"; // <-- your logo
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   const footerLinks = {
     courses: [
-      { label: 'Web Development', path: '/courses?category=Web Development' },
-      { label: 'Data Science', path: '/courses?category=Data Science' },
-      { label: 'UI/UX Design', path: '/courses?category=Design' },
-      { label: 'Cloud Computing', path: '/courses?category=Cloud Computing' },
+      { label: "Web Development", path: "/courses?category=Web Development" },
+      { label: "Data Science", path: "/courses?category=Data Science" },
+      { label: "UI/UX Design", path: "/courses?category=Design" },
+      { label: "Cloud Computing", path: "/courses?category=Cloud Computing" },
     ],
     company: [
-      { label: 'About Us', path: '/about' },
-      { label: 'Instructors', path: '/instructors' },
-      { label: 'Blog', path: '/blog' },
-      { label: 'Careers', path: '/careers' },
+      { label: "About Us", path: "/about" },
+      { label: "Blog", path: "/blog" },
+      { label: "Careers", path: "/careers" },
+      { label: "Contact Us", path: "/contact" },
     ],
-    support: [
-      { label: 'Help Center', path: '/help' },
-      { label: 'FAQ', path: '/faq' },
-      { label: 'Contact Us', path: '/contact' },
-      { label: 'Privacy Policy', path: '/privacy' },
-    ],
+    // SUPPORT REMOVED from UI as per your request
   };
 
   const socialLinks = [
-    { icon: <Facebook size={20} />, url: '#', label: 'Facebook' },
-    { icon: <Twitter size={20} />, url: '#', label: 'Twitter' },
-    { icon: <Linkedin size={20} />, url: '#', label: 'LinkedIn' },
-    { icon: <Instagram size={20} />, url: '#', label: 'Instagram' },
+    { icon: <Facebook size={18} />, url: "#", label: "Facebook" },
+    { icon: <Twitter size={18} />, url: "#", label: "Twitter" },
+    { icon: <Linkedin size={18} />, url: "#", label: "LinkedIn" },
+    { icon: <Instagram size={18} />, url: "#", label: "Instagram" },
   ];
 
   return (
     <footer className={styles.footer}>
       <div className={`container ${styles.container}`}>
         <div className={styles.topSection}>
+          {/* BRAND + CONTACT */}
           <div className={styles.brandSection}>
-            <Link to="/" className={styles.logo}>
-              <GraduationCap size={32} />
-              <span>Coursify</span>
+            <Link to="/" className={styles.logo} aria-label="TakeOff Upskill home">
+              <img
+                src={logo}
+                alt="TakeOff Upskill"
+                className={styles.logoImg}
+              />
             </Link>
+
             <p className={styles.description}>
-              Empowering learners worldwide with industry-relevant skills and expert-led courses.
-              Transform your career with us.
+              Course discovery and enquiry support for learners and teams. Share
+              your goals once, and we help you connect with the right programs
+              and institutes.
             </p>
+
             <div className={styles.contactInfo}>
-              <a href="mailto:info@takeoffupskill.com" className={styles.contactItem}>
-                <Mail size={18} />
+              <a
+                href="mailto:info@takeoffupskill.com"
+                className={styles.contactItem}
+              >
+                <Mail size={16} />
                 info@takeoffupskill.com
               </a>
               <a href="tel:+1234567890" className={styles.contactItem}>
-                <Phone size={18} />
+                <Phone size={16} />
                 +1 (234) 567-890
               </a>
               <div className={styles.contactItem}>
-                <MapPin size={18} />
+                <MapPin size={16} />
                 123 Learning St, Tech City
               </div>
             </div>
           </div>
 
+          {/* LINKS (Courses + Company only) */}
           <div className={styles.linksSection}>
             <div className={styles.linkColumn}>
               <h3>Courses</h3>
@@ -80,21 +95,13 @@ const Footer = () => {
                 </Link>
               ))}
             </div>
-
-            <div className={styles.linkColumn}>
-              <h3>Support</h3>
-              {footerLinks.support.map((link) => (
-                <Link key={link.path} to={link.path} className={styles.link}>
-                  {link.label}
-                </Link>
-              ))}
-            </div>
           </div>
         </div>
 
+        {/* BOTTOM BAR */}
         <div className={styles.bottomSection}>
           <p className={styles.copyright}>
-            {currentYear} TakeOff Upskill. All rights reserved.
+            © {currentYear} TakeOff Upskill. All rights reserved.
           </p>
           <div className={styles.socialLinks}>
             {socialLinks.map((social) => (

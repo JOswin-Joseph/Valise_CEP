@@ -44,9 +44,16 @@ export default function Careers() {
 
   const handleFile = (f) => {
     if (!f) return;
-    const allowed = ["application/pdf", "application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"];
+    const allowed = [
+      "application/pdf",
+      "application/msword",
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    ];
     if (!allowed.includes(f.type)) {
-      setErrors((prev) => ({ ...prev, file: "Please upload PDF / DOC / DOCX" }));
+      setErrors((prev) => ({
+        ...prev,
+        file: "Please upload PDF / DOC / DOCX",
+      }));
       return;
     }
     setFile(f);
@@ -61,8 +68,6 @@ export default function Careers() {
   const onSelectFile = (ev) => {
     handleFile(ev.target.files[0]);
   };
-
-  const removeFile = () => setFile(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -85,83 +90,180 @@ export default function Careers() {
   return (
     <PageTransition>
       <div className={styles.wrapper}>
-
         {/* HERO SECTION */}
         <header className={styles.hero}>
-          <div className={styles.heroInner}>
-            <h1>Teach. Grow. Impact — Join Coursify as an Instructor</h1>
+          <motion.div
+            className={styles.heroInner}
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+          >
+            <p className={styles.heroEyebrow}>INSTRUCTOR & MENTOR OPPORTUNITIES</p>
+            <h1>Teach. Grow. Impact — join Conzura’s learning network.</h1>
             <p className={styles.lead}>
-              Share your expertise with thousands of learners. Flexible engagement, 
-              fair revenue sharing, and a platform designed to amplify your teaching career.
+              Share your expertise with thousands of learners. Flexible
+              engagement models, fair revenue sharing and a platform designed to
+              amplify your teaching career.
             </p>
             <div className={styles.heroActions}>
-              <a href="#apply" className={styles.primaryBtn}>Apply now</a>
-              <a href="#why-us" className={styles.ghostBtn}>Why teach with us</a>
+              <a href="#apply" className={styles.primaryBtn}>
+                Apply now
+              </a>
+              <a href="#why-us" className={styles.ghostBtn}>
+                Why teach with us
+              </a>
             </div>
-          </div>
+          </motion.div>
         </header>
 
-        {/* WHY TEACH WITH US – CLEAN, SPACED, CLEAR */}
+        {/* WHY TEACH WITH US */}
         <section id="why-us" className={styles.whyUs}>
-          <h2>Why Teach With Coursify?</h2>
-          <p className={styles.sub}>
-            A platform built to empower educators and democratize world-class learning.
-          </p>
+          <motion.div
+            initial={{ opacity: 0, y: 18 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.5, ease: "easeOut" }}
+          >
+            <h2>Why teach with Conzura?</h2>
+            <p className={styles.sub}>
+              A professional ecosystem that respects your time, your expertise
+              and your growth as an educator.
+            </p>
+          </motion.div>
 
           <div className={styles.cards}>
-            <div className={styles.card}>
-              <div className={styles.cardIcon}><Inbox size={20} /></div>
-              <h3>Global Reach</h3>
-              <p>Teach learners worldwide and expand your professional influence.</p>
-            </div>
-
-            <div className={styles.card}>
-              <div className={styles.cardIcon}><UploadCloud size={20} /></div>
-              <h3>Flexible Delivery</h3>
-              <p>Choose between live sessions or recorded content.</p>
-            </div>
-
-            <div className={styles.card}>
-              <div className={styles.cardIcon}><Paperclip size={20} /></div>
-              <h3>Fair Revenue</h3>
-              <p>Competitive revenue models and additional instructor bonuses.</p>
-            </div>
+            {[
+              {
+                Icon: Inbox,
+                title: "Global reach",
+                copy: "Teach learners across geographies and build a visible professional brand.",
+              },
+              {
+                Icon: UploadCloud,
+                title: "Flexible delivery",
+                copy: "Choose live cohorts, hybrid models or self-paced recordings that suit your schedule.",
+              },
+              {
+                Icon: Paperclip,
+                title: "Fair revenue",
+                copy: "Transparent revenue share, performance bonuses and long-term collaboration options.",
+              },
+            ].map(({ Icon, title, copy }, idx) => (
+              <motion.article
+                key={title}
+                className={styles.card}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ delay: 0.1 * idx, duration: 0.45 }}
+              >
+                <div className={styles.cardIcon}>
+                  <Icon size={20} />
+                </div>
+                <h3>{title}</h3>
+                <p>{copy}</p>
+              </motion.article>
+            ))}
           </div>
         </section>
 
         {/* APPLY SECTION */}
         <section id="apply" className={styles.applySection}>
-          <div className={styles.left}>
+          <motion.div
+            className={styles.left}
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.5, ease: "easeOut" }}
+          >
             <h2>Ready to share your expertise?</h2>
             <p>
-              Fill in your details and attach your CV. Our team will reach out to 
-              discuss collaboration opportunities.
+              Tell us about yourself, your primary domain and your teaching
+              experience. Our academic partnerships team will review your
+              profile and reach out with the next steps.
             </p>
 
             <ul className={styles.steps}>
-              <li><strong>1. Sign up:</strong> Submit your details and CV.</li>
-              <li><strong>2. Review:</strong> Our team reviews your application.</li>
-              <li><strong>3. Onboard:</strong> Publish and promote your course.</li>
+              <li>
+                <strong>1. Share your profile</strong>
+                <span> – Submit your details and upload your latest CV.</span>
+              </li>
+              <li>
+                <strong>2. Expert review</strong>
+                <span> – Our team evaluates your domain fit and teaching background.</span>
+              </li>
+              <li>
+                <strong>3. Onboarding & launch</strong>
+                <span> – Co-design your program structure and go live with your cohort.</span>
+              </li>
             </ul>
-          </div>
+          </motion.div>
 
-          <form className={styles.form} onSubmit={handleSubmit}>
-            <h3>Application</h3>
+          <motion.form
+            className={styles.form}
+            onSubmit={handleSubmit}
+            initial={{ opacity: 0, x: 20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.5, ease: "easeOut" }}
+          >
+            <h3>Instructor application</h3>
 
-            <input name="name" placeholder="Full name" value={form.name} onChange={handleChange} />
-            {errors.name && <span className={styles.error}>{errors.name}</span>}
+            <label>
+              Full name
+              <input
+                name="name"
+                placeholder="Enter your full name"
+                value={form.name}
+                onChange={handleChange}
+              />
+              {errors.name && (
+                <span className={styles.error}>{errors.name}</span>
+              )}
+            </label>
 
-            <input name="email" placeholder="Email address" value={form.email} onChange={handleChange} />
-            {errors.email && <span className={styles.error}>{errors.email}</span>}
+            <label>
+              Email address
+              <input
+                name="email"
+                placeholder="you@example.com"
+                value={form.email}
+                onChange={handleChange}
+              />
+              {errors.email && (
+                <span className={styles.error}>{errors.email}</span>
+              )}
+            </label>
 
-            <select name="course" value={form.course} onChange={handleChange}>
-              <option value="">Select Course</option>
-              {courses.map((c) => <option key={c}>{c}</option>)}
-            </select>
-            {errors.course && <span className={styles.error}>{errors.course}</span>}
+            <label>
+              Preferred teaching domain
+              <select
+                name="course"
+                value={form.course}
+                onChange={handleChange}
+              >
+                <option value="">Select a domain</option>
+                {courses.map((c) => (
+                  <option key={c}>{c}</option>
+                ))}
+              </select>
+              {errors.course && (
+                <span className={styles.error}>{errors.course}</span>
+              )}
+            </label>
 
-            <input name="phone" placeholder="+91 XXXXXXXXXX" value={form.phone} onChange={handleChange} />
-            {errors.phone && <span className={styles.error}>{errors.phone}</span>}
+            <label>
+              Phone / WhatsApp
+              <input
+                name="phone"
+                placeholder="+91 XXXXXXXXXX"
+                value={form.phone}
+                onChange={handleChange}
+              />
+              {errors.phone && (
+                <span className={styles.error}>{errors.phone}</span>
+              )}
+            </label>
 
             <div
               className={styles.dropzone}
@@ -169,21 +271,43 @@ export default function Careers() {
               onDrop={onDrop}
               onClick={() => fileRef.current?.click()}
             >
-              <input type="file" ref={fileRef} onChange={onSelectFile} hidden />
+              <input
+                type="file"
+                ref={fileRef}
+                onChange={onSelectFile}
+                hidden
+              />
               <UploadCloud size={20} />
-              <span>{file ? file.name : "Upload CV (PDF / DOC / DOCX)"}</span>
+              <div className={styles.dropzoneText}>
+                <span>
+                  {file ? file.name : "Upload CV (PDF / DOC / DOCX)"}
+                </span>
+                <small>Drag & drop or click to browse</small>
+              </div>
             </div>
-            {errors.file && <span className={styles.error}>{errors.file}</span>}
+            {errors.file && (
+              <span className={styles.error}>{errors.file}</span>
+            )}
 
             {file && (
               <div className={styles.filePreview}>
-                <CheckCircle size={16} /> <span>{file.name}</span>
-                <button type="button" onClick={() => setFile(null)}>Remove</button>
+                <CheckCircle size={16} />
+                <span>{file.name}</span>
+                <button
+                  type="button"
+                  onClick={() => setFile(null)}
+                >
+                  Remove
+                </button>
               </div>
             )}
 
-            <button type="submit" className={styles.submit} disabled={submitting}>
-              {submitting ? "Submitting..." : "Submit Application"}
+            <button
+              type="submit"
+              className={styles.submit}
+              disabled={submitting}
+            >
+              {submitting ? "Submitting..." : "Submit application"}
             </button>
 
             {success && (
@@ -192,7 +316,7 @@ export default function Careers() {
                 <p>{success.message}</p>
               </div>
             )}
-          </form>
+          </motion.form>
         </section>
       </div>
     </PageTransition>

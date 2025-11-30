@@ -8,20 +8,23 @@ import {
   Rocket,
   Lightbulb,
   BookOpen,
-  Layers
+  Layers,
 } from "lucide-react";
 
 export default function About() {
   return (
     <div className="about-wrapper">
-
       {/* HERO */}
       <section className="about-hero">
-        <div className="hero-content">
-          <h1>Empowering Minds. Shaping Futures.</h1>
+        <div className="container hero-inner">
+          <div className="hero-pill">About Conzura Soft Solutions</div>
+
+          <h1>Empowering minds. Shaping future-ready careers.</h1>
+
           <p>
-            We are redefining learning through innovation, experience, and technology — 
-            helping learners become globally competitive professionals.
+            We help learners and teams discover the right programs, connect
+            with trusted institutes and build globally competitive careers
+            through guided course discovery and enquiry support.
           </p>
         </div>
       </section>
@@ -30,146 +33,221 @@ export default function About() {
       <section className="stats-bar">
         <div className="stat-item">
           <h3>50K+</h3>
-          <p>Learners</p>
+          <p>Learners guided</p>
         </div>
         <div className="stat-item">
           <h3>400+</h3>
-          <p>Courses</p>
+          <p>Programs listed</p>
         </div>
         <div className="stat-item">
           <h3>120+</h3>
-          <p>Hiring Partners</p>
+          <p>Partner institutes</p>
         </div>
         <div className="stat-item">
           <h3>300+</h3>
-          <p>Industry Projects</p>
+          <p>Industry projects</p>
         </div>
       </section>
 
       {/* WHO WE ARE */}
       <section className="section">
-        <h2 className="section-title">Who We Are</h2>
-
-        <p className="section-desc">
-          We are a next-gen EdTech organization building industry-ready professionals 
-          through expert-led training, real-world projects, and a future-focused curriculum.
-        </p>
+        <div className="section-header">
+          <h2 className="section-title">Who we are</h2>
+          <p className="section-desc">
+            Conzura is a next-gen learning partner focused on course discovery,
+            structured guidance and outcome-driven training. We connect
+            learners, teams and institutes through a single, transparent
+            enquiry experience.
+          </p>
+        </div>
 
         <div className="premium-grid">
           <div className="premium-card">
-            <Target size={40} />
-            <h3>Our Mission</h3>
-            <p>Empowering learners with practical and job-ready skills.</p>
+            <Target size={32} />
+            <h3>Our mission</h3>
+            <p>Empower learners with clear pathways and job-ready skills.</p>
           </div>
 
           <div className="premium-card">
-            <Globe size={40} />
-            <h3>Our Vision</h3>
-            <p>To create a global community of world-class professionals.</p>
+            <Globe size={32} />
+            <h3>Our vision</h3>
+            <p>Build a global community of industry-ready professionals.</p>
           </div>
 
           <div className="premium-card">
-            <Rocket size={40} />
-            <h3>Our Goal</h3>
-            <p>To make high-quality learning accessible to everyone.</p>
+            <Rocket size={32} />
+            <h3>Our focus</h3>
+            <p>
+              Make high-quality programs discoverable, comparable and
+              accessible.
+            </p>
           </div>
         </div>
       </section>
 
       {/* VALUES */}
       <section className="section alt">
-        <h2 className="section-title">Our Core Values</h2>
+        <div className="section-header">
+          <h2 className="section-title">Our core values</h2>
+        </div>
 
         <div className="values-flex">
           <div className="value-card">
-            <Lightbulb size={32} />
+            <Lightbulb size={28} />
             <h3>Innovation</h3>
-            <p>We bring modern, creative, and unique learning experiences.</p>
+            <p>Modern, tech-driven workflows for course discovery.</p>
           </div>
 
           <div className="value-card">
-            <Layers size={32} />
+            <Layers size={28} />
             <h3>Quality</h3>
-            <p>We deliver meticulously crafted courses with real-world relevance.</p>
+            <p>Curated programs aligned to real hiring expectations.</p>
           </div>
 
           <div className="value-card">
-            <CheckCircle size={32} />
+            <CheckCircle size={28} />
             <h3>Integrity</h3>
-            <p>We follow honest, transparent, and ethical learning principles.</p>
+            <p>Transparent information and honest recommendations.</p>
           </div>
 
           <div className="value-card">
-            <Users size={32} />
+            <Users size={28} />
             <h3>Community</h3>
-            <p>We nurture growth through collaboration and support.</p>
+            <p>Supportive ecosystem of learners, mentors and partners.</p>
+          </div>
+        </div>
+      </section>
+
+      {/* HOW WE WORK */}
+      <section className="section workflow-section">
+        <div className="section-header">
+          <h2 className="section-title">How we work with learners</h2>
+          <p className="section-desc">
+            Every enquiry is treated like a consulting engagement. We understand
+            your goals, curate the right options and guide you until you’re
+            ready to enrol.
+          </p>
+        </div>
+
+        <div className="workflow-grid">
+          <div className="workflow-card">
+            <BookOpen size={26} />
+            <h3>1. Understand your goals</h3>
+            <ul>
+              <li>Profile discussion – background, interests and constraints</li>
+              <li>Clarify outcomes – role, technology stack or domain</li>
+              <li>Short discovery call or structured questionnaire</li>
+            </ul>
+          </div>
+
+          <div className="workflow-card">
+            <Layers size={26} />
+            <h3>2. Curate the right programs</h3>
+            <ul>
+              <li>Match you with programs that fit budget and timelines</li>
+              <li>Compare curriculum depth, delivery model and projects</li>
+              <li>Highlight scholarship, EMI and placement-support options</li>
+            </ul>
+          </div>
+
+          <div className="workflow-card">
+            <CheckCircle size={26} />
+            <h3>3. Enable smooth enrolment</h3>
+            <ul>
+              <li>Connect you with institute counsellors and coordinators</li>
+              <li>Support with documentation, doubts and next-step clarity</li>
+              <li>Stay available as a neutral, trusted advisor</li>
+            </ul>
           </div>
         </div>
       </section>
 
       {/* WHY CHOOSE US */}
       <section className="section">
-        <h2 className="section-title">Why Learners Choose Us</h2>
+        <div className="section-header">
+          <h2 className="section-title">Why learners choose us</h2>
+        </div>
 
         <div className="choose-grid">
           <div className="choose-card">
-            <CheckCircle size={32} />
-            <h3>Project-Based Learning</h3>
-            <p>Build real-world skills through practical projects.</p>
+            <BookOpen size={28} />
+            <h3>Structured guidance</h3>
+            <p>
+              From enquiry to enrolment, we help you shortlist the most relevant
+              programs.
+            </p>
           </div>
 
           <div className="choose-card">
-            <Award size={32} />
-            <h3>Industry Mentors</h3>
-            <p>Learn from leading experts and professionals.</p>
+            <Award size={28} />
+            <h3>Verified partners</h3>
+            <p>
+              Collaborations with institutes that meet our quality benchmarks.
+            </p>
           </div>
 
           <div className="choose-card">
-            <Globe size={32} />
-            <h3>Global Learning Access</h3>
-            <p>Access from anywhere with lifetime learning support.</p>
+            <Globe size={28} />
+            <h3>Multiple domains</h3>
+            <p>Technology, data, design, management and more in one place.</p>
           </div>
 
           <div className="choose-card">
-            <Users size={32} />
-            <h3>24/7 Assistance</h3>
-            <p>Our team ensures smooth learning with instant support.</p>
+            <Users size={28} />
+            <h3>Dedicated support</h3>
+            <p>Prompt support for learners, parents and corporate teams.</p>
           </div>
         </div>
       </section>
 
       {/* IMPACT */}
       <section className="impact-section">
-        <h2 className="section-title">Our Impact</h2>
-        <p className="impact-subtitle">
-          We are not just building careers — we are shaping the future workforce.
-        </p>
+        <div className="impact-inner">
+          <h2 className="section-title impact-title">Our impact</h2>
+          <p className="impact-subtitle">
+            We don’t just list courses. We help learners make confident,
+            career-defining decisions that convert into real outcomes.
+          </p>
 
-        <div className="impact-grid">
+          <div className="impact-grid">
+            <div className="impact-card">
+              <div className="impact-value">95%</div>
+              <div className="impact-label">Reported skill uplift</div>
+              <p className="impact-note">
+                Learners reporting stronger technical and career clarity after
+                guidance.
+              </p>
+            </div>
 
-          <div className="impact-box">
-            <h3>95%</h3>
-            <p>Skill Improvement</p>
+            <div className="impact-card">
+              <div className="impact-value">40,000+</div>
+              <div className="impact-label">Hours of counselling & training</div>
+              <p className="impact-note">
+                Guidance, doubt-clearing and program orientation sessions
+                delivered.
+              </p>
+            </div>
+
+            <div className="impact-card">
+              <div className="impact-value">300+</div>
+              <div className="impact-label">Live, hands-on projects</div>
+              <p className="impact-note">
+                Real-world projects executed across multiple tech and data
+                domains.
+              </p>
+            </div>
+
+            <div className="impact-card">
+              <div className="impact-value">120+</div>
+              <div className="impact-label">Recruitment & training partners</div>
+              <p className="impact-note">
+                Institutes and companies trusting Conzura as an upskilling
+                partner.
+              </p>
+            </div>
           </div>
-
-          <div className="impact-box">
-            <h3>40,000+</h3>
-            <p>Hours of Training Delivered</p>
-          </div>
-
-          <div className="impact-box">
-            <h3>300+</h3>
-            <p>Real Projects Completed</p>
-          </div>
-
-          <div className="impact-box">
-            <h3>120+</h3>
-            <p>Hiring Partners Added</p>
-          </div>
-
         </div>
       </section>
-
     </div>
   );
 }
