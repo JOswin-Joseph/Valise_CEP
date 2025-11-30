@@ -1,25 +1,25 @@
-import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { Search, Filter } from 'lucide-react';
-import PageTransition from '../components/layout/PageTransition';
-import Pagination from '../components/common/Pagination';
-import { setPageTitle } from '../utils/helpers';
-import seedData from '../mock/seed.json';
-import styles from './Courses.module.css';
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import { Search, Filter } from "lucide-react";
+import PageTransition from "../components/layout/PageTransition";
+import Pagination from "../components/common/Pagination";
+import { setPageTitle } from "../utils/helpers";
+import seedData from "../mock/seed.json";
+import styles from "./Courses.module.css";
 
 const Courses = () => {
   const [courses, setCourses] = useState([]);
   const [filteredCourses, setFilteredCourses] = useState([]);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('All');
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("All");
   const [currentPage, setCurrentPage] = useState(1);
   const coursesPerPage = 6;
 
-  const categories = ['All', ...new Set(seedData.courses.map(c => c.category))];
+  const categories = ["All", ...new Set(seedData.courses.map((c) => c.category))];
 
   useEffect(() => {
-    setPageTitle('Courses');
+    setPageTitle("Courses");
     setCourses(seedData.courses);
     setFilteredCourses(seedData.courses);
   }, []);
@@ -27,14 +27,16 @@ const Courses = () => {
   useEffect(() => {
     let filtered = courses;
 
-    if (selectedCategory !== 'All') {
-      filtered = filtered.filter(c => c.category === selectedCategory);
+    if (selectedCategory !== "All") {
+      filtered = filtered.filter((c) => c.category === selectedCategory);
     }
 
     if (searchTerm) {
-      filtered = filtered.filter(c =>
-        c.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        c.description.toLowerCase().includes(searchTerm.toLowerCase())
+      const term = searchTerm.toLowerCase();
+      filtered = filtered.filter(
+        (c) =>
+          c.title.toLowerCase().includes(term) ||
+          c.description.toLowerCase().includes(term)
       );
     }
 
@@ -44,59 +46,87 @@ const Courses = () => {
 
   const indexOfLastCourse = currentPage * coursesPerPage;
   const indexOfFirstCourse = indexOfLastCourse - coursesPerPage;
-  const currentCourses = filteredCourses.slice(indexOfFirstCourse, indexOfLastCourse);
+  const currentCourses = filteredCourses.slice(
+    indexOfFirstCourse,
+    indexOfLastCourse
+  );
   const totalPages = Math.ceil(filteredCourses.length / coursesPerPage);
 
   return (
     <PageTransition>
       <div className={styles.coursesPage}>
+        {/* HEADER */}
         <div className={styles.header}>
-          <div className="container">
-            <h1>Explore Our Courses</h1>
-            <p>Find the perfect course to advance your career</p>
+          <div className={`container ${styles.headerInner}`}>
+            <div>
+              <h1>Explore programs & courses</h1>
+              <p>
+                Browse curated programs across technology, data, design and more.
+                Use filters to quickly shortlist the right options for your goals.
+              </p>
+            </div>
           </div>
         </div>
 
         <div className="container">
+          {/* FILTERS */}
           <div className={styles.filters}>
             <div className={styles.searchBox}>
-              <Search size={20} />
+              <Search size={18} />
               <input
                 type="text"
-                placeholder="Search courses..."
+                placeholder="Search by course name or keywords..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
             </div>
 
             <div className={styles.categoryFilter}>
-              <Filter size={20} />
-              <select value={selectedCategory} onChange={(e) => setSelectedCategory(e.target.value)}>
-                {categories.map(cat => (
-                  <option key={cat} value={cat}>{cat}</option>
+              <Filter size={18} />
+              <select
+                value={selectedCategory}
+                onChange={(e) => setSelectedCategory(e.target.value)}
+              >
+                {categories.map((cat) => (
+                  <option key={cat} value={cat}>
+                    {cat}
+                  </option>
                 ))}
               </select>
             </div>
           </div>
 
+          <div className={styles.resultsMeta}>
+            Showing <strong>{filteredCourses.length}</strong>{" "}
+            {filteredCourses.length === 1 ? "course" : "courses"}
+          </div>
+
+          {/* GRID */}
           <div className={styles.coursesGrid}>
             {currentCourses.map((course, index) => (
               <motion.div
                 key={course.id}
                 className={styles.courseCard}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 18 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
-                whileHover={{ y: -10 }}
+                transition={{ delay: index * 0.06, duration: 0.35 }}
+                whileHover={{ y: -6 }}
               >
-                <img src={course.thumbnail} alt={course.title} />
+                <div className={styles.imageWrap}>
+                  <img src={course.thumbnail} alt={course.title} />
+                </div>
                 <div className={styles.content}>
                   <span className={styles.category}>{course.category}</span>
                   <h3>{course.title}</h3>
                   <p>{course.shortDescription}</p>
                   <div className={styles.footer}>
                     <span className={styles.price}>₹{course.price}</span>
-                    <Link to={`/courses/${course.slug}`} className="btn btn-primary">View Details</Link>
+                    <Link
+                      to={`/courses/${course.slug}`}
+                      className={styles.detailsBtn}
+                    >
+                      View details
+                    </Link>
                   </div>
                 </div>
               </motion.div>
@@ -110,7 +140,11 @@ const Courses = () => {
           )}
 
           {totalPages > 1 && (
-            <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={setCurrentPage} />
+            <Pagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onPageChange={setCurrentPage}
+            />
           )}
         </div>
       </div>

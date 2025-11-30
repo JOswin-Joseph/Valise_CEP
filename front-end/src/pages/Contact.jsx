@@ -1,6 +1,9 @@
+// src/pages/Contact.jsx
 import { useEffect, useState } from "react";
+import { Mail, Phone, MapPin, Clock } from "lucide-react";
 import PageTransition from "../components/layout/PageTransition";
 import { setPageTitle } from "../utils/helpers";
+import styles from "./Contact.module.css";
 
 const Contact = () => {
   useEffect(() => {
@@ -15,6 +18,8 @@ const Contact = () => {
     message: "",
   });
 
+  const [submitted, setSubmitted] = useState(false);
+
   const courses = [
     "Web Development",
     "Data Science",
@@ -25,171 +30,197 @@ const Contact = () => {
   ];
 
   const handleChange = (e) => {
+    setSubmitted(false);
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Course Enquiry Submitted:", form);
-    alert("Your enquiry has been submitted!");
+    setSubmitted(true);
+
+    // optional: reset form
+    setForm({
+      name: "",
+      email: "",
+      phone: "",
+      course: "",
+      message: "",
+    });
   };
 
   return (
     <PageTransition>
-      <div className="contact-page-section" style={{ padding: "4rem 1rem" }}>
-        <div className="container" style={{ maxWidth: "900px", margin: "0 auto" }}>
-          
-          {/* Page Title */}
-          <h1 style={{ fontSize: "2.4rem", marginBottom: "1rem", textAlign: "center" }}>
-            Contact Us
-          </h1>
-          <p 
-            style={{
-              textAlign: "center",
-              maxWidth: "600px",
-              margin: "0 auto 2.5rem",
-              color: "var(--color-text-secondary)",
-            }}
-          >
-            Have a question about a course? Fill out the form below and we’ll get back
-            to you shortly.
-          </p>
-
-          {/* Form Card */}
-          <div
-            style={{
-              background: "#fff",
-              padding: "2rem",
-              borderRadius: "12px",
-              boxShadow: "0 4px 20px rgba(0,0,0,0.08)",
-            }}
-          >
-            <form onSubmit={handleSubmit}>
-              {/* Name */}
-              <label style={{ display: "block", marginBottom: "1.2rem" }}>
-                <span style={{ fontWeight: 600 }}>Full Name</span>
-                <input
-                  type="text"
-                  name="name"
-                  value={form.name}
-                  onChange={handleChange}
-                  placeholder="Enter your name"
-                  required
-                  style={{
-                    width: "100%",
-                    padding: "0.8rem",
-                    marginTop: "0.4rem",
-                    borderRadius: "8px",
-                    border: "1px solid #ccc",
-                  }}
-                />
-              </label>
-
-              {/* Email */}
-              <label style={{ display: "block", marginBottom: "1.2rem" }}>
-                <span style={{ fontWeight: 600 }}>Email Address</span>
-                <input
-                  type="email"
-                  name="email"
-                  value={form.email}
-                  onChange={handleChange}
-                  placeholder="example@gmail.com"
-                  required
-                  style={{
-                    width: "100%",
-                    padding: "0.8rem",
-                    marginTop: "0.4rem",
-                    borderRadius: "8px",
-                    border: "1px solid #ccc",
-                  }}
-                />
-              </label>
-
-              {/* Phone */}
-              <label style={{ display: "block", marginBottom: "1.2rem" }}>
-                <span style={{ fontWeight: 600 }}>Phone Number</span>
-                <input
-                  type="text"
-                  name="phone"
-                  value={form.phone}
-                  onChange={handleChange}
-                  placeholder="+91 XXXXXXXXXX"
-                  required
-                  style={{
-                    width: "100%",
-                    padding: "0.8rem",
-                    marginTop: "0.4rem",
-                    borderRadius: "8px",
-                    border: "1px solid #ccc",
-                  }}
-                />
-              </label>
-
-              {/* Course */}
-              <label style={{ display: "block", marginBottom: "1.2rem" }}>
-                <span style={{ fontWeight: 600 }}>Select Course</span>
-                <select
-                  name="course"
-                  value={form.course}
-                  onChange={handleChange}
-                  required
-                  style={{
-                    width: "100%",
-                    padding: "0.8rem",
-                    marginTop: "0.4rem",
-                    borderRadius: "8px",
-                    border: "1px solid #ccc",
-                  }}
-                >
-                  <option value="">Choose a course</option>
-                  {courses.map((course, index) => (
-                    <option key={index} value={course}>
-                      {course}
-                    </option>
-                  ))}
-                </select>
-              </label>
-
-              {/* Message */}
-              <label style={{ display: "block", marginBottom: "1.5rem" }}>
-                <span style={{ fontWeight: 600 }}>Message</span>
-                <textarea
-                  name="message"
-                  value={form.message}
-                  onChange={handleChange}
-                  placeholder="Write your enquiry..."
-                  required
-                  rows="4"
-                  style={{
-                    width: "100%",
-                    padding: "0.8rem",
-                    marginTop: "0.4rem",
-                    borderRadius: "8px",
-                    border: "1px solid #ccc",
-                  }}
-                ></textarea>
-              </label>
-
-              {/* Submit */}
-              <button
-                type="submit"
-                style={{
-                  padding: "0.9rem 0",
-                  width: "100%",
-                  background: "var(--color-primary)",
-                  color: "#fff",
-                  fontWeight: 600,
-                  borderRadius: "8px",
-                  border: "none",
-                  cursor: "pointer",
-                  fontSize: "1rem",
-                }}
-              >
-                Submit Enquiry
-              </button>
-            </form>
+      <div className={styles.wrapper}>
+        {/* HERO */}
+        <section className={styles.hero}>
+          <div className={`container ${styles.heroInner}`}>
+            <div>
+              <p className={styles.heroEyebrow}>Contact</p>
+              <h1 className={styles.heroTitle}>Let’s talk about your learning goals</h1>
+              <p className={styles.heroSubtitle}>
+                Share a few details about your course interests and our team will
+                get back to you with the right guidance, batch options, and fee
+                structure.
+              </p>
+            </div>
           </div>
-        </div>
+        </section>
+
+        {/* CONTENT */}
+        <section className={styles.main}>
+          <div className={`container ${styles.mainInner}`}>
+            {/* LEFT: Info panel */}
+            <div className={styles.infoPanel}>
+              <h2>Talk to our team</h2>
+              <p className={styles.infoText}>
+                Whether you are exploring a single course or planning a learning
+                roadmap for your team, we’re here to help you choose the right
+                path.
+              </p>
+
+              <div className={styles.infoGrid}>
+                <div className={styles.infoCard}>
+                  <div className={styles.infoIcon}>
+                    <Mail size={18} />
+                  </div>
+                  <div>
+                    <p className={styles.infoLabel}>Email</p>
+                    <p className={styles.infoValue}>info@gmail.com</p>
+                  </div>
+                </div>
+
+                <div className={styles.infoCard}>
+                  <div className={styles.infoIcon}>
+                    <Phone size={18} />
+                  </div>
+                  <div>
+                    <p className={styles.infoLabel}>Phone</p>
+                    <p className={styles.infoValue}>+91 98765 43210</p>
+                  </div>
+                </div>
+
+                <div className={styles.infoCard}>
+                  <div className={styles.infoIcon}>
+                    <MapPin size={18} />
+                  </div>
+                  <div>
+                    <p className={styles.infoLabel}>Location</p>
+                    <p className={styles.infoValue}>Chennai, India</p>
+                  </div>
+                </div>
+
+                <div className={styles.infoCard}>
+                  <div className={styles.infoIcon}>
+                    <Clock size={18} />
+                  </div>
+                  <div>
+                    <p className={styles.infoLabel}>Working hours</p>
+                    <p className={styles.infoValue}>Mon – Sat, 10:00 AM – 7:00 PM</p>
+                  </div>
+                </div>
+              </div>
+
+              <p className={styles.infoNote}>
+                Prefer email? Just drop us a line with your profile and
+                interested course, and we’ll respond within one working day.
+              </p>
+            </div>
+
+            {/* RIGHT: Form */}
+            <div className={styles.formCard}>
+              <h2 className={styles.formTitle}>Course enquiry form</h2>
+              <p className={styles.formSubtitle}>
+                Tell us what you’re looking for and we’ll share the best-fit
+                options.
+              </p>
+
+              <form onSubmit={handleSubmit} className={styles.form}>
+                {/* Name */}
+                <label className={styles.field}>
+                  <span>Full name</span>
+                  <input
+                    type="text"
+                    name="name"
+                    value={form.name}
+                    onChange={handleChange}
+                    placeholder="Enter your name"
+                    required
+                  />
+                </label>
+
+                {/* Email */}
+                <label className={styles.field}>
+                  <span>Email address</span>
+                  <input
+                    type="email"
+                    name="email"
+                    value={form.email}
+                    onChange={handleChange}
+                    placeholder="example@gmail.com"
+                    required
+                  />
+                </label>
+
+                {/* Phone */}
+                <label className={styles.field}>
+                  <span>Phone number</span>
+                  <input
+                    type="text"
+                    name="phone"
+                    value={form.phone}
+                    onChange={handleChange}
+                    placeholder="+91 XXXXXXXXXX"
+                    required
+                  />
+                </label>
+
+                {/* Course */}
+                <label className={styles.field}>
+                  <span>Select course</span>
+                  <select
+                    name="course"
+                    value={form.course}
+                    onChange={handleChange}
+                    required
+                  >
+                    <option value="">Choose a course</option>
+                    {courses.map((course, index) => (
+                      <option key={index} value={course}>
+                        {course}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+
+                {/* Message */}
+                <label className={styles.field}>
+                  <span>Message</span>
+                  <textarea
+                    name="message"
+                    value={form.message}
+                    onChange={handleChange}
+                    placeholder="Tell us about your background and what you want to achieve…"
+                    rows={4}
+                    required
+                  />
+                </label>
+
+                {/* Submit */}
+                <button type="submit" className={styles.submitBtn}>
+                  Submit enquiry
+                </button>
+
+                {submitted && (
+                  <div className={styles.successNote}>
+                    Your enquiry has been submitted. Our team will get in touch
+                    with you shortly.
+                  </div>
+                )}
+              </form>
+            </div>
+          </div>
+        </section>
       </div>
     </PageTransition>
   );
