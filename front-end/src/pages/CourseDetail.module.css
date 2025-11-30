@@ -136,12 +136,21 @@
 
 /* ================= BODY LAYOUT (WHITE THEME) ================= */
 
+/* REPLACE your current .body block with this one */
 .body {
-  padding: 3.5rem 0 4rem;
+  /* keep vertical spacing similar to before but center and constrain width */
+  padding: 3.5rem 0.2rem 4rem;      /* keep existing vertical padding */
   display: grid;
   grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr);
   gap: 2.8rem;
   color: #1f2937;
+
+  /* center and limit width so content never touches edges */
+  max-width: 1200px;               /* prevents full-width stretch on large screens */
+  margin: 1rem auto 4rem;          /* auto horizontal margins center the grid */
+  padding-left: 20px;              /* give horizontal breathing room */
+  padding-right: 20px;
+  box-sizing: border-box;
 }
 
 .main {
