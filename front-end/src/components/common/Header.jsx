@@ -1,59 +1,87 @@
 // src/components/common/Header.jsx
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef, useLayoutEffect } from "react";
+import { Link } from "react-router-dom";
 import styles from "./Header.module.css";
 import logo from "../../assets/logo.png";
 
 export default function Header() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [headerHeight, setHeaderHeight] = useState(72);
+
+  const headerRef = useRef(null);
+  const logoRef = useRef(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
-    window.addEventListener("scroll", onScroll);
+    window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // close on ESC
   useEffect(() => {
-    const onKey = (e) => {
-      if (e.key === "Escape") setOpen(false);
-    };
+    const onKey = (e) => { if (e.key === "Escape") setOpen(false); };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, []);
 
-  // optionally close if window is resized to desktop (prevents stale mobile open)
   useEffect(() => {
     const onResize = () => {
       if (window.innerWidth >= 1024 && open) setOpen(false);
+      computeHeaderHeight();
     };
     window.addEventListener("resize", onResize);
     return () => window.removeEventListener("resize", onResize);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open]);
+
+  const computeHeaderHeight = () => {
+    const el = headerRef.current;
+    if (el) {
+      const h = Math.round(el.getBoundingClientRect().height);
+      setHeaderHeight(h);
+      el.style.setProperty("--header-height", `${h}px`);
+    }
+  };
+
+  useLayoutEffect(() => {
+    computeHeaderHeight();
+    const t = setTimeout(computeHeaderHeight, 300);
+    return () => clearTimeout(t);
+  }, []);
+
+  const onLogoLoad = () => computeHeaderHeight();
+
+  const closeMenu = () => setOpen(false);
 
   return (
     <>
       <header
+        ref={headerRef}
         className={`${styles.header} ${scrolled ? styles.scrolled : ""}`}
-        // set header height CSS var — keep synced with your CSS --header-height value
-        style={{ "--header-height": "72px" }}
+        style={{ ["--header-height"]: `${headerHeight}px` }}
       >
         <div className={styles.inner}>
-          <a href="/" className={styles.brand} aria-label="Homepage">
-            {/* replace /logo.png with your actual logo path */}
-            <img src={logo} alt="Site logo" className={styles.brandLogo} />
-          </a>
+          <Link to="/" className={styles.brand} aria-label="Homepage" onClick={closeMenu}>
+            <img
+              ref={logoRef}
+              src={logo}
+              alt="Site logo"
+              className={styles.brandLogo}
+              onLoad={onLogoLoad}
+              draggable="false"
+            />
+          </Link>
 
           <nav className={styles.desktopNav} aria-label="Primary navigation">
-            <a href="#home" className={styles.navLink}>Home</a>
-            <a href="#courses" className={styles.navLink}>Courses</a>
-            <a href="#about" className={styles.navLink}>About</a>
-            <a href="#contact" className={styles.navLink}>Contact</a>
+            <Link to="/" className={styles.navLink} onClick={closeMenu}>Home</Link>
+            <Link to="/courses" className={styles.navLink} onClick={closeMenu}>Courses</Link>
+            <Link to="/about" className={styles.navLink} onClick={closeMenu}>About</Link>
+            <Link to="/contact" className={styles.navLink} onClick={closeMenu}>Contact</Link>
           </nav>
 
           <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
             <div className={styles.actions}>
-              <a href="#explore" className={styles.signupBtn}>Explore Courses</a>
+              <Link to="/explore" className={styles.signupBtn} onClick={closeMenu}>Explore Courses</Link>
             </div>
 
             <button
@@ -77,7 +105,6 @@ export default function Header() {
         </div>
       </header>
 
-      {/* Mobile menu/backdrop (starts below the fixed header via CSS var) */}
       {open && (
         <>
           <div
@@ -93,20 +120,15 @@ export default function Header() {
             aria-label="Mobile menu"
           >
             <nav className={styles.mobileNav}>
-              <a href="#home" className={styles.mobileNavLink} onClick={() => setOpen(false)}>Home</a>
-              <a href="#courses" className={styles.mobileNavLink} onClick={() => setOpen(false)}>Courses</a>
-              <a href="#about" className={styles.mobileNavLink} onClick={() => setOpen(false)}>About</a>
-              <a href="#contact" className={styles.mobileNavLink} onClick={() => setOpen(false)}>Contact</a>
+              <Link to="/" className={styles.mobileNavLink} onClick={closeMenu}>Home</Link>
+              <Link to="/courses" className={styles.mobileNavLink} onClick={closeMenu}>Courses</Link>
+              <Link to="/about" className={styles.mobileNavLink} onClick={closeMenu}>About</Link>
+              <Link to="/contact" className={styles.mobileNavLink} onClick={closeMenu}>Contact</Link>
 
               <div style={{ marginTop: "auto", padding: "12px 18px" }}>
-                <a
-                  href="#get-started"
-                  className={styles.mobileBtnAccent}
-                  style={{ display: "block", padding: "12px 14px" }}
-                  onClick={() => setOpen(false)}
-                >
+                <Link to="/get-started" className={styles.mobileBtnAccent} style={{ display: "block", padding: "12px 14px" }} onClick={closeMenu}>
                   Get Started
-                </a>
+                </Link>
               </div>
             </nav>
           </aside>
@@ -115,3 +137,4 @@ export default function Header() {
     </>
   );
 }
+  
